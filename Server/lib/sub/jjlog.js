@@ -19,7 +19,8 @@
 // 모듈 호출
 
 var colors = require('colors');
-
+var asdf = "./log/"+"log";
+var fs = require("fs");
 function callLog(text){
 	var date = new Date();
 	var o = {
@@ -38,20 +39,80 @@ function callLog(text){
 	console.log("["+o.year+"-"+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"] "+text);
 }
 exports.log = function(text){
+	var date = new Date();
+	var o = {
+		year: 1900 + date.getYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+		second: date.getSeconds()
+	}, i;
+	fs.appendFile(asdf+"-"+o.year+"-"+o.month+"-"+o.date+".log", "\n["+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"] "+text, 'utf8', (error) => { });
 	callLog(text);
 };
 exports.info = function(text){
+	var date = new Date();
+	var o = {
+		year: 1900 + date.getYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+		second: date.getSeconds()
+	}, i;
+	fs.appendFile(asdf+"-"+o.year+"-"+o.month+"-"+o.date+".log", "\n["+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"] "+text, 'utf8', (error) => { });
 	callLog(text.cyan);
 };
 exports.success = function(text){
+	var date = new Date();
+	var o = {
+		year: 1900 + date.getYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+		second: date.getSeconds()
+	}, i;
+	fs.appendFile(asdf+"-"+o.year+"-"+o.month+"-"+o.date+".log", "\n["+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"]"+text, 'utf8', (error) => { });
 	callLog(text.green);
 };
 exports.alert = function(text){
+	var date = new Date();
+	var o = {
+		year: 1900 + date.getYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+		second: date.getSeconds()
+	}, i;
+	fs.appendFile(asdf+"-"+o.year+"-"+o.month+"-"+o.date+".log", "\n["+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"] "+text, 'utf8', (error) => { });
 	callLog(text.yellow);
 };
 exports.warn = function(text){
+	var date = new Date();
+	var o = {
+		year: 1900 + date.getYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+		second: date.getSeconds()
+	}, i;
+	fs.appendFile(asdf+"-"+o.year+"-"+o.month+"-"+o.date+".log", "\n["+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"]"+text, 'utf8', (error) => { });
 	callLog(text.black.bgYellow);
 };
 exports.error = function(text){
+	var date = new Date();
+	var o = {
+		year: 1900 + date.getYear(),
+		month: date.getMonth() + 1,
+		date: date.getDate(),
+		hour: date.getHours(),
+		minute: date.getMinutes(),
+		second: date.getSeconds()
+	}, i;
+	fs.appendFile(asdf+"-"+o.year+"-"+o.month+"-"+o.date+".log", "\n["+o.month+"-"+o.date+" "+o.hour+":"+o.minute+":"+o.second+"] "+text, 'utf8', (error) => { });
 	callLog(text.bgRed);
 };

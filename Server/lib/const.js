@@ -40,7 +40,9 @@ exports.OPTIONS = {
 	'prv': { name: "Proverb" },
 	'str': { name: "Strict" },
 	'k32': { name: "Sami" },
-	'no2': { name: "No2" }
+	'no2': { name: "No2" },
+	'rts': { name: "Returns" },
+	'bom': { name: "Bomb" }
 };
 exports.MOREMI_PART = [ 'back', 'eye', 'mouth', 'shoes', 'clothes', 'head', 'lhand', 'rhand', 'front' ];
 exports.CATEGORIES = [ "all", "spec", "skin", "badge", "head", "eye", "mouth", "clothes", "hs", "back" ];
@@ -80,7 +82,7 @@ exports.RULE = {
 	},
 	'ESH': { lang: "en",
 		rule: "Classic",
-		opts: [ "ext", "mis" ],
+		opts: [ "ext", "mis", "rts" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -96,7 +98,7 @@ exports.RULE = {
 	},
 	'KSH': { lang: "ko",
 		rule: "Classic",
-		opts: [ "man", "ext", "mis", "loa", "str" ],
+		opts: [ "man", "ext", "mis", "loa", "str", "rts", "bom" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -136,7 +138,7 @@ exports.RULE = {
 	},
 	'KAP': { lang: "ko",
 		rule: "Classic",
-		opts: [ "man", "ext", "mis", "loa", "str" ],
+		opts: [ "man", "ext", "mis", "loa", "str", "rts" ],
 		time: 1,
 		ai: true,
 		big: false,
@@ -182,6 +184,15 @@ exports.RULE = {
 		ai: false,
 		big: true,
 		ewq: false
+	},
+	'EAP': { lang: "en",
+		rule: "Classic",
+		opts: [ "ext", "mis", "rts" ],
+		time: 1,
+		ai: true,
+		big: false,
+		_back: true,
+		ewq: true
 	}
 };
 exports.getPreScore = function(text, chain, tr){
@@ -204,9 +215,9 @@ exports.KO_INJEONG = [
 	"NSK", "KOT", "DOT", "DRR", "DGM", "RAG", "LVL",
 	"LOL", "MRN", "MMM", "MAP", "MKK", "MNG",
 	"MOB", "HYK", "CYP", "HRH", "STA", "OIJ",
-	"KGR", "ESB", "ELW", "OIM", "OVW", "NEX", /*"WOW",*/
+	"KGR", "ESB", "ELW", "OIM", "OVW", "NEX", "WOW",
 	"YRY", "KPO", "JLN", "JAN", "ZEL", "POK", "HAI",
-	"HSS", "KMV", "HDC", "HOS"
+	"HSS", "KMV", "HDC", "HOS", "JAM"
 ];
 exports.EN_INJEONG = [
 	"LOL"

@@ -177,6 +177,8 @@ block Middle
 				option(value=90)
 				option(value=120)
 				option(value=150)
+				option(value=200)
+				option(value=300)
 		div.dialog-bar(style='height: 59px;')
 			h4(style='height: 45px;')= L('misc')
 			- for(var i in locals.OPTIONS)
@@ -248,13 +250,14 @@ block Middle
 			input#dict-input(style='width: 183px;', placeholder=L('wpInput'), maxlength=200)
 		div.dialog-bar#dict-output(style='height: 195px; overflow-y: scroll; color: #BBBBBB; background-color: #111111;')
 		div.dialog-bar.tail-button
-			select#dict-theme(style='width: 86px;')
-				option(value="")= L('pickInjeong')
-				- locals.KO_INJEONG.forEach(function(item){
-					option(value=item)= L('theme_' + item)
-				- });
+			//-
+				select#dict-theme(style='width: 86px;')
+					option(value="")= L('pickInjeong')
+					- locals.KO_INJEONG.forEach(function(item){
+						option(value=item)= L('theme_' + item)
+					- });
 			button#dict-search= L('SEARCH')
-			button#dict-injeong= L('injeongReq')
+			//button#dict-injeong= L('injeongReq')
 	+Dialog('InviteDiag', 300, 420, L('invite'))
 		div.invite-board(style='height: 355px; overflow-y: scroll;')
 		div.dialog-bar.tail-button

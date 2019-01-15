@@ -57,6 +57,9 @@ exports.getTitle = function(){
 		case 'ESH':
 			eng = "^" + String.fromCharCode(97 + Math.floor(Math.random() * 26));
 			break;
+		case 'EAP':
+			eng = String.fromCharCode(97 + Math.floor(Math.random() * 26)) + "$";
+			break;
 		case 'KKT':
 			my.game.wordLength = 3;
 		case 'KSH':
@@ -153,7 +156,7 @@ exports.turnStart = function(force){
 	var si;
 	
 	if(!my.game.chain) return;
-	my.game.roundTime = Math.min(my.game.roundTime, Math.max(10000, 150000 - my.game.chain.length * 1500));
+	my.game.roundTime = Math.min(my.game.roundTime, Math.max(10000, 300000 - my.game.chain.length * 1500));
 	speed = my.getTurnSpeed(my.game.roundTime);
 	clearTimeout(my.game.turnTimer);
 	clearTimeout(my.game.robotTimer);
@@ -193,8 +196,13 @@ exports.turnEnd = function(){
 	}
 	my.game.late = true;
 	if(target) if(target.game){
-		score = Const.getPenalty(my.game.chain, target.game.score);
-		target.game.score += score;
+		if (!my.opts.bomb) {
+			score = Const.getPenalty(my.game.chain, target.game.score);
+			target.game.score += score;
+		} else {
+			score = -target.game.score;
+			target.game.score += score;
+		}
 	}
 	getAuto.call(my, my.game.char, my.game.subChar, 0).then(function(w){
 		my.byMaster('turnEnd', {
@@ -218,7 +226,7 @@ exports.submit = function(client, text){
 	if(!my.game.char) return;
 	
 	if(!isChainable(text, my.mode, my.game.char, my.game.subChar)) return client.chat(text);
-	if(my.game.chain.indexOf(text) != -1) return client.publish('turnError', { code: 409, value: text }, true);
+	if(my.game.chain.indexOf(text) != -1 && !my.opts.returns) return client.publish('turnError', { code: 409, value: text }, true);
 	
 	l = my.rule.lang;
 	my.game.loading = true;
@@ -297,7 +305,7 @@ exports.submit = function(client, text){
 		if(!text) return false;
 		if(text.length <= l) return false;
 		if(my.game.wordLength && text.length != my.game.wordLength) return false;
-		if(type == "KAP") return (text.slice(-1) == char) || (text.slice(-1) == subChar);
+		if(type == "KAP" || type == "EAP") return (text.slice(-1) == char) || (text.slice(-1) == subChar);
 		switch(l){
 			case 1: return (text[0] == char) || (text[0] == subChar);
 			case 2: return (text.substr(0, 2) == char);
@@ -331,7 +339,7 @@ exports.readyRobot = function(robot){
 	var ended = {};
 	var w, text, i;
 	var lmax;
-	var isRev = Const.GAME_TYPE[my.mode] == "KAP";
+	var isRev = Const.GAME_TYPE[my.mode] == "KAP" || Const.GAME_TYPE[my.mode] == "EAP";
 	
 	getAuto.call(my, my.game.char, my.game.subChar, 2).then(function(list){
 		if(list.length){
@@ -441,6 +449,9 @@ function getAuto(char, subc, type){
 		case 'KAP':
 			adv = `.(${adc})$`;
 			break;
+		case 'EAP':
+			adv = `...(${adc})$`;
+			break;
 	}
 	if(!char){
 		console.log(`Undefined char detected! key=${key} type=${type} adc=${adc}`);
@@ -525,6 +536,7 @@ function getChar(text){
 		case 'ESH':
 		case 'KKT':
 		case 'KSH': return text.slice(-1);
+		case 'EAP':
 		case 'KAP': return text.charAt(0);
 	}
 };

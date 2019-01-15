@@ -38,9 +38,9 @@ html
 
 		block OpenGraph
 			meta(property='og:image', content=locals.ogImage || "http://JJo.kr/img/ogImage.png")
-			meta(property='og:url', content=locals.ogURL || "http://JJo.kr/")
-			meta(property='og:title', content=locals.ogTitle || "쪼롤 - League of Legends 정보 검색 사이트")
-			meta(property='og:description', content=locals.ogDescription || "롤 전적검색은 JJO.KR")
+			meta(property='og:url', content=locals.ogURL || "http://jamtu.kro.kr")
+			meta(property='og:title', content=locals.ogTitle || "글자로 놀자! 잼투온라인")
+			meta(property='og:description', content=locals.ogDescription || "끝말잇기는 잼투지!")
 
 		+PageHead()
 			block Preload
@@ -58,7 +58,7 @@ html
 		div#Jungle
 			span#mobile= locals.mobile
 			span#summonerID= DATA._id
-			img#Background(src='/img/bg/' + (locals.bg || 'def.png'))
+			img#Background(style="background-image: url('/img/kkutu/gamebg.png')")
 			block Jungle
 		div#Middle
 			block Middle

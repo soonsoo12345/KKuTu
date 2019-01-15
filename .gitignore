@@ -1,9 +1,9 @@
-Client/node_modules
-Server/run.bat
-Server/node_modules
+tmp
+KKUTU_ERROR.log
+Server/lib/Web/public/kkutu-*.html
+Server/log
+Server/lib/sub/*.json
+*.log
 Server/lib/node_modules
-Server/lib/Web/public/js/**
-!Server/lib/Web/public/js/jquery.js
-Server/lib/sub/auth.json
-Server/lib/sub/global.json
-.vscode
+Server/node_modules
+Server/lib/Web/public/js/*

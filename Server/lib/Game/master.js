@@ -56,7 +56,7 @@ const GUEST_PERMISSION = exports.GUEST_PERMISSION = {
 	'kickVote': true,
 	'wp': true
 };
-const ENABLE_ROUND_TIME = exports.ENABLE_ROUND_TIME = [ 10, 30, 60, 90, 120, 150 ];
+const ENABLE_ROUND_TIME = exports.ENABLE_ROUND_TIME = [ 5, 10, 30, 60, 90, 120, 150, 200, 300 ];
 const ENABLE_FORM = exports.ENABLE_FORM = [ "S", "J" ];
 const MODE_LENGTH = exports.MODE_LENGTH = Const.GAME_TYPE.length;
 const PORT = process.env['KKUTU_PORT'];
@@ -116,6 +116,16 @@ function processAdmin(id, value){
 				JLog.success("Dumping success.");
 			});*/
 			return null;
+		case "ip":
+			try {
+				if(DIC[value]) {
+					if (DIC[id]) DIC[id].send('tail', { a: "IP", rid: value, id: "", msg: DIC[value].socket.upgradeReq.connection.remoteAddress});
+					else JLog.log("IP ERROR : <"+id+"> (타겟)이 존재하지 않습니다 ( 오프라인일시에도 포함)");
+				} else JLog.log("IP ERROR : <"+id+"> (타겟)이 존재하지 않습니다 ( 오프라인일시에도 포함)");
+			} catch(e) {
+				console.log(e);
+			}
+		return null;
 	}
 	return value;
 }
@@ -173,7 +183,16 @@ Cluster.on('message', function(worker, msg){
 			if(DIC[msg.id]) DIC[msg.id].onOKG(msg.time);
 			break;
 		case "kick":
-			if(DIC[msg.target]) DIC[msg.target].socket.close();
+			if(DIC[msg.target]){
+				if(DIC[msg.target].admin) {
+					DIC[id].send('yell', { "value": "관리자는 추방 할 수 없습니다." });
+				} else {
+					DIC[msg.target].socket.close();
+					DIC[id].send('yell', { "value": "유저를 추방하였습니다." });
+				}
+			} else {
+				DIC[id].send('yell', { "value": "사용자를 찾을 수 없습니다." });
+			}
 			break;
 		case "invite":
 			if(!DIC[msg.target]){
@@ -375,6 +394,7 @@ exports.init = function(_SID, CHAN){
 function joinNewUser($c) {
 	$c.send('welcome', {
 		id: $c.id,
+		username: $c.username,
 		guest: $c.guest,
 		box: $c.box,
 		playTime: $c.data.playTime,
@@ -562,6 +582,13 @@ function processClientRequest($c, msg) {
 		*/
 		case 'test':
 			checkTailUser($c.id, $c.place, msg);
+			break;
+		case "setNick":
+			if(msg.value) MainDB.users.findOne([ 'username', msg.value ]).on(function($res){
+				if(!$res) MainDB.users.update(['_id', $c.id]).set(['username', msg.value]).on();
+				else $c.send('gerror', {value: 601});
+			});
+			else $c.send('gerror', {value: 602});
 			break;
 		default:
 			break;

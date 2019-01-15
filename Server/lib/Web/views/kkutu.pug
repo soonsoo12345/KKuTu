@@ -176,6 +176,7 @@ block Middle
 				optgroup(label=L('mcEnglish'))
 					option(value=1)= L('modeESH')
 					option(value=0)= L('modeEKT')
+					option(value=14)= L('modeEAP')
 					option(value=7)= L('modeETY')
 					option(value=11)= L('modeEDA')
 					option(value=13)= L('modeESS')
@@ -188,14 +189,17 @@ block Middle
 		div.dialog-bar
 			h4= L('roundTime')
 			select#room-time
+				option(value=5, style='color: #FF4444')
 				option(value=10, style='color: #FF4444')
 				option(value=30)
 				option(value=60, selected)
 				option(value=90)
 				option(value=120)
 				option(value=150)
+				option(value=200)
+				option(value=300)
 		div.dialog-bar(style='height: 59px;')
-			h4(style='height: 45px;')= L('misc')
+			h4(style='height: 20px;')= L('misc')
 			- for(var i in locals.OPTIONS)
 				+GameOption(i, 'room')
 			div.dialog-opt#room-injpick-panel
@@ -265,13 +269,14 @@ block Middle
 			input#dict-input(style='width: 283px;', placeholder=L('wpInput'), maxlength=200)
 		div.dialog-bar#dict-output(style='height: 195px; overflow-y: scroll; color: #BBBBBB; background-color: #111111;')
 		div.dialog-bar.tail-button
-			select#dict-theme
-				option(value="")= L('pickInjeong')
-				- locals.KO_INJEONG.forEach(function(item){
-					option(value=item)= L('theme_' + item)
-				- });
+			//-
+				select#dict-theme
+					option(value="")= L('pickInjeong')
+					- locals.KO_INJEONG.forEach(function(item){
+						option(value=item)= L('theme_' + item)
+					- });
 			button#dict-search= L('SEARCH')
-			button#dict-injeong= L('injeongReq')
+			//button#dict-injeong= L('injeongReq')
 	+Dialog('InviteDiag', 300, 420, L('invite'))
 		div.invite-board(style='height: 355px; overflow-y: scroll;')
 		div.dialog-bar.tail-button
@@ -390,6 +395,18 @@ block Middle
 			button#obtain-ok= L('OK')
 	+Dialog('HelpDiag', 550, 400, L('helpText'))
 		iframe#help-board(width=550, height=375)
+	+Dialog('SetNick', 350, 125, L('setNick'))
+		| 잼투에서 사용하실 닉네임을
+		br
+		| 입력해주세요.
+		input#nick(type='text')
+		div.dialog-bar.tail-button
+			button#SetNick-ok= L('OK')
+	+Dialog('gerror', 350, 125, L('error'))
+		#desc
+		input#desc_code(type='hidden')
+		div.dialog-bar.tail-button
+			button#gerror-ok= L('OK')
 	+Product('UserList')
 		div 불러오는 중
 	+Product('RoomList')

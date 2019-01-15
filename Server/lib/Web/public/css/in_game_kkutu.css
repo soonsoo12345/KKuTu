@@ -341,7 +341,7 @@ iframe{
 .GameBox{
 	width: 1000px;
 	height: 410px;
-	background-image: url('/img/kkutu/gamebg.png');
+	background-image: url('/img/kkutu/gamebg2.png');
 }
 	.GameBox .product-title{ height: 12px; }
 	.GameBox .product-title h5{ float: left; }

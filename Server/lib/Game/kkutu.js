@@ -252,6 +252,7 @@ exports.Client = function(socket, profile, sid){
 	my.blocked = false;
 	my.spam = 0;
 	my._pub = new Date();
+	my.username = undefined;
 	
 	if(Cluster.isMaster){
 		my.onOKG = function(time){
@@ -436,12 +437,15 @@ exports.Client = function(socket, profile, sid){
 					}
 				}
 			}*/
+			my.username = $user.username || undefined;
+			if(my.username) my.profile.title = my.username;
 			my.exordial = $user.exordial || "";
 			my.equip = $user.equip || {};
 			my.box = $user.box || {};
 			my.data = new exports.Data($user.kkutu);
 			my.money = Number($user.money);
 			my.friends = $user.friends || {};
+			if(!my.username) my.send("setNick");
 			if(first) my.flush();
 			else{
 				my.checkExpire();
@@ -1195,7 +1199,7 @@ exports.Room = function(room, channel){
 				res[i].rank = Number(i);
 			}
 			pv = res[i].score;
-			rw = getRewards(my.mode, o.game.score / res[i].dim, o.game.bonus, res[i].rank, rl, sumScore);
+			rw = getRewards(my.mode, o.game.score / res[i].dim, o.game.bonus, res[i].rank, rl, sumScore, my.opts);
 			rw.playTime = now - o.playAt;
 			o.applyEquipOptions(rw); // 착용 아이템 보너스 적용
 			if(rw.together){
@@ -1381,9 +1385,10 @@ function shuffle(arr){
 	
 	return r;
 }
-function getRewards(mode, score, bonus, rank, all, ss){
+function getRewards(mode, score, bonus, rank, all, ss, opts){
 	var rw = { score: 0, money: 0 };
 	var sr = score / ss;
+	if(opts.returns) return rw
 	
 	// all은 1~8
 	// rank는 0~7
