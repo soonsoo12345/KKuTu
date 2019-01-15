@@ -218,7 +218,7 @@ exports.KO_INJEONG = [
 	"MOB", "HYK", "CYP", "HRH", "STA", "OIJ",
 	"KGR", "ESB", "ELW", "OIM", "OVW", "NEX", "WOW",
 	"YRY", "KPO", "JLN", "JAN", "ZEL", "POK", "HAI",
-	"HSS", "KMV", "HDC", "HOS", "JAM"
+	"HSS", "KMV", "HDC", "HOS", "JAM", "ZHS", "UDT", "CAT"
 ];
 exports.EN_INJEONG = [
 	"LOL"
