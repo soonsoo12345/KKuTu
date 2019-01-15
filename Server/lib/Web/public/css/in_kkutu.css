@@ -139,7 +139,7 @@ iframe{
 	.dialog-bar{ float: left; margin: 3px 0px; width: 100%; }
 	.dialog-bar h4{ float: left; padding-top: 6px; width: 100px; text-align: center; }
 	.dialog-bar-value{ width: calc(100% - 100px) !important; text-align: left !important; }
-	.dialog-bar input, .dialog-bar select{ float: left; width: 187px; height: 14px; box-sizing: inherit; outline: none; }
+	.dialog-bar input, .dialog-bar select{ float: left; width: 340px; height: 14px; box-sizing: inherit; outline: none; }
 	.dialog-bar label{ font-size: 13px; }
 	.dialog-bar button{ float: left; }
 		.dialog-opt{ float: left; width: 100px; }
@@ -497,7 +497,7 @@ iframe{
 				background-color: #223C6C;
 			}
 			.jjo-turn-time .graph-bar{ background-color: #E6E846; }
-			.jjo-round-time .graph-bar{ background-color: #3573E4; }
+			.jjo-round-time .graph-bar{ background-color: #FF8000; }
 				.round-extreme{ background-color: #FF6D6D !important; }
 			.cw .jjo-turn-time{ display: none; }
 			.cw .jjo-round-time{ width: 306px; }

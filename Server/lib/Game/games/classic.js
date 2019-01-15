@@ -163,6 +163,7 @@ exports.turnStart = function(force){
 	my.game.late = false;
 	my.game.turnTime = 15000 - 1400 * speed;
 	my.game.turnAt = (new Date()).getTime();
+	if(my.opts.mission&&my.opts.change) my.game.mission = getMission(my.rule.lang);
 	if(my.opts.sami) my.game.wordLength = (my.game.wordLength == 3) ? 2 : 3;
 	
 	my.byMaster('turnStart', {

@@ -42,7 +42,8 @@ exports.OPTIONS = {
 	'k32': { name: "Sami" },
 	'no2': { name: "No2" },
 	'rts': { name: "Returns" },
-	'bom': { name: "Bomb" }
+	'bom': { name: "Bomb" },
+	'chn': { name: "Change" }
 };
 exports.MOREMI_PART = [ 'back', 'eye', 'mouth', 'shoes', 'clothes', 'head', 'lhand', 'rhand', 'front' ];
 exports.CATEGORIES = [ "all", "spec", "skin", "badge", "head", "eye", "mouth", "clothes", "hs", "back" ];
@@ -98,7 +99,7 @@ exports.RULE = {
 	},
 	'KSH': { lang: "ko",
 		rule: "Classic",
-		opts: [ "man", "ext", "mis", "loa", "str", "rts", "bom" ],
+		opts: [ "man", "ext", "mis", "loa", "str", "rts", "bom", "chn" ],
 		time: 1,
 		ai: true,
 		big: false,
